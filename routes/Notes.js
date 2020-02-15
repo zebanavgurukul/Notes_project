@@ -35,4 +35,19 @@ Notes.get('/get_id/:Notes_id', (req,res) => {
     })
 });
 
+// 4
+Notes.put('/put/:Notes_id', (req,res) => {
+    let Notes_id = req.params.Notes_id
+    let updata = {
+        Tasks : req.body.Tasks,
+        Notes : req.body.Notes,
+    }
+    NotesDB.put(updata,Notes_id)
+    .then(() => {
+        res.send('update')
+    }).catch((err) => {
+        res.send(err)
+    })
+});
+
 module.exports = Notes

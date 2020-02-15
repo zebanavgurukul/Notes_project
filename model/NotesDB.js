@@ -15,4 +15,9 @@ let get_id = (Notes_id) => {
     return knex('your_Notes').select('*').where('Notes_id',Notes_id)
 };
 
-module.exports = {post_data,get,get_id}
+// 4
+let put = (updata,Notes_id) => {
+    return knex('your_Notes').update(updata).where('Notes_id',Notes_id)
+};
+
+module.exports = {post_data,get,get_id,put}
