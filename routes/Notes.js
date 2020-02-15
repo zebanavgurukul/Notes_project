@@ -17,8 +17,8 @@ Notes.post('/post', (req,res) => {
 // 2
 Notes.get('/get', (req,res) => {
     NotesDB.get()
-    .then((data) => {
-        res.send(data)
+    .then((Response) => {
+        res.send(Response)
     }).catch((err) => {
         res.send(err)
     })
@@ -28,8 +28,8 @@ Notes.get('/get', (req,res) => {
 Notes.get('/get_id/:Notes_id', (req,res) => {
     let Notes_id = req.params.Notes_id
     NotesDB.get_id(Notes_id)
-    .then((data) => {
-        res.send(data)
+    .then((Response) => {
+        res.send(Response)
     }).catch((err) => {
         res.send(err)
     })
@@ -57,6 +57,17 @@ Notes.delete('/delete/:Notes_id',(req,res) => {
     .then(() => {
         res.send('delete')
     }).catch((err) => {
+        res.send(err)
+    })
+});
+
+//6 
+Notes.get('/notes/:search_value', (req,res) => {
+    var search_value = req.params.search_value
+    var data = NotesDB.search(search_value)
+    data.then((Response)=>{
+        res.json(Response)
+    }).catch((err)=>{
         res.send(err)
     })
 });

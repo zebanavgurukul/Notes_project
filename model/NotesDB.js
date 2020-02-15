@@ -25,4 +25,11 @@ let delete_data = (Notes_id) => {
     return knex('your_Notes').where("Notes_id",Notes_id).del()
 };
 
-module.exports = {post_data,get,get_id,put,delete_data}
+// 6
+var search = (search_value) => {
+    return knex.select('*')
+    .from('your_Notes')
+    .where('Tasks','like',  '%' +search_value+ '%')
+};
+
+module.exports = {post_data,get,get_id,put,delete_data,search}
