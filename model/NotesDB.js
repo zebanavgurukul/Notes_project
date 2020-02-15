@@ -26,10 +26,19 @@ let delete_data = (Notes_id) => {
 };
 
 // 6
-var search = (search_value) => {
+let search = (search_value) => {
     return knex.select('*')
     .from('your_Notes')
     .where('Tasks','like',  '%' +search_value+ '%')
 };
 
-module.exports = {post_data,get,get_id,put,delete_data,search}
+// 7
+let getdata = (Notes_id) => {
+    return knex('your_Notes').select('*').where('Notes_id',Notes_id)
+}; 
+
+let reminder = (insert_data) => {
+    return knex('reminder').insert(insert_data)
+};
+
+module.exports = {post_data,get,get_id,put,delete_data,search,getdata,reminder}

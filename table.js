@@ -23,3 +23,17 @@ knex.schema.hasTable('your_Notes').then((exists) => {
     }
     return console.log('table is created!')
 });
+
+knex.schema.hasTable('reminder').then((exists) => {
+    if (!exists) {
+        return knex.schema.createTable('reminder', (table) => {
+            table.increments('reminder_id')
+            table.string('Tasks')
+            table.string('set_reminder')
+        })
+        .catch((err) => {
+            console.log(err,"There is some err while writing the quety")
+        })
+    }
+    return console.log('table is created!')
+});
