@@ -37,3 +37,17 @@ knex.schema.hasTable('reminder').then((exists) => {
     }
     return console.log('table is created!')
 });
+
+knex.schema.hasTable('Attachments').then((exists) => {
+    if (!exists) {
+        return knex.schema.createTable('Attachments', (table) => {
+            table.increments('Attachments_id')
+            table.string('Attachments')
+            table.string('Notes')
+        })
+        .catch((err) => {
+            console.log(err,"There is some err while writing the quety")
+        })
+    }
+    return console.log('table is created!')
+});

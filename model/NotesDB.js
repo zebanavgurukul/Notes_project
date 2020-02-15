@@ -41,4 +41,15 @@ let reminder = (insert_data) => {
     return knex('reminder').insert(insert_data)
 };
 
-module.exports = {post_data,get,get_id,put,delete_data,search,getdata,reminder}
+// 8
+let dataget = (Notes_id) => {
+    return knex('your_Notes').select('*').where('Notes_id',Notes_id)
+};
+
+let postdata = (updata) => {
+    return knex('Attachments').insert(updata)
+};
+
+
+
+module.exports = {post_data,get,get_id,put,delete_data,search,getdata,reminder,dataget,postdata}

@@ -99,4 +99,23 @@ Notes.post('/postdata/:Notes_id',(req,res) => {
     })
 });
 
+// 8
+Notes.post('/data/:Notes_id', (req,res) => {
+    let Notes_id = req.params.Notes_id
+    NotesDB.dataget(Notes_id)
+    .then((Response) => {
+    var Notes = Response[0]['Notes']
+    var updata = {
+        Attachments : req.body.Attachments,
+        Notes : Notes
+    }
+    NotesDB.postdata(updata)
+    .then(() => {
+        res.send('insert')
+    })
+    }).catch((err) => {
+        res.send(err)
+    })
+});
+
 module.exports = Notes
