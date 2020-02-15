@@ -118,4 +118,15 @@ Notes.post('/data/:Notes_id', (req,res) => {
     })
 });
 
+// 9
+Notes.get('/getdata/:Attachments_id', (req,res) => {
+    let Attachments_id = req.params.Attachments_id
+    NotesDB.get_data(Attachments_id)
+    .then((Response) => {
+        res.send(Response)
+    }).catch((err) => {
+        res.send(err)
+    })
+});
+
 module.exports = Notes

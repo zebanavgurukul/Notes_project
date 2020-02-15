@@ -50,6 +50,8 @@ let postdata = (updata) => {
     return knex('Attachments').insert(updata)
 };
 
+let get_data = (Attachments_id) => {
+    return knex('Attachments').select('*').where('Attachments_id',Attachments_id)
+};
 
-
-module.exports = {post_data,get,get_id,put,delete_data,search,getdata,reminder,dataget,postdata}
+module.exports = {post_data,get,get_id,put,delete_data,search,getdata,reminder,dataget,postdata,get_data}
