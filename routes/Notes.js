@@ -50,4 +50,15 @@ Notes.put('/put/:Notes_id', (req,res) => {
     })
 });
 
+// 5
+Notes.delete('/delete/:Notes_id',(req,res) => {
+    var Notes_id = req.params.Notes_id
+    NotesDB.delete_data(Notes_id)
+    .then(() => {
+        res.send('delete')
+    }).catch((err) => {
+        res.send(err)
+    })
+});
+
 module.exports = Notes
