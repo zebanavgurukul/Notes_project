@@ -14,4 +14,25 @@ Notes.post('/post', (req,res) => {
     })
 });
 
+// 2
+Notes.get('/get', (req,res) => {
+    NotesDB.get()
+    .then((data) => {
+        res.send(data)
+    }).catch((err) => {
+        res.send(err)
+    })
+});
+
+// 3
+Notes.get('/get_id/:Notes_id', (req,res) => {
+    let Notes_id = req.params.Notes_id
+    NotesDB.get_id(Notes_id)
+    .then((data) => {
+        res.send(data)
+    }).catch((err) => {
+        res.send(err)
+    })
+});
+
 module.exports = Notes

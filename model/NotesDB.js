@@ -5,4 +5,14 @@ let post_data = (add) => {
     return knex('your_Notes').insert(add)
 };
 
-module.exports = {post_data}
+// 2
+let get = () => {
+    return knex('your_Notes').select('*')
+};
+
+// 3
+let get_id = (Notes_id) => {
+    return knex('your_Notes').select('*').where('Notes_id',Notes_id)
+};
+
+module.exports = {post_data,get,get_id}
