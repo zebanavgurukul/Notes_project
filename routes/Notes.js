@@ -1,12 +1,14 @@
 const express = require("express");
 const Notes = express.Router();
 const NotesDB   = require("../model/NotesDB")
+var sleep = require('system-sleep');
+
 
 var schedule = require('node-schedule');
 let startTime = new Date(Date.now() + 2000);
 let endTime = new Date(startTime.getTime() + 4000);
 var j = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/2 * * * * *' }, function(){
-    console.log('Time for set reminder your notes!');
+    // console.log('Time for set reminder your notes!');
 });
 
 // 1
@@ -80,24 +82,24 @@ Notes.get('/notes/:search_value', (req,res) => {
 });
 
 // 7
-Notes.post('/postdata/:Notes_id',(req,res) => {
-    var Notes_id = req.params.Notes_id
-    NotesDB.getdata(Notes_id)
-    .then((Response) => {
-    var Tasks = Response[0]['Tasks']
-    let update = {
-        Tasks : Tasks,
-        set_reminder : endTime,
-    }
-    NotesDB.reminder(update)
-    .then(()=>{
-        console.log('Time for set reminder your notes!');
-        res.send('Time for set reminder your notes!')
-    })
-    }).catch((err) => {
-      res.send(err)
-    })
-});
+// Notes.post('/postdata/:Notes_id',(req,res) => {
+//     var Notes_id = req.params.Notes_id
+//     NotesDB.getdata(Notes_id)
+//     .then((Response) => {
+//     var Tasks = Response[0]['Tasks']
+//     let update = {
+//         Tasks : Tasks,
+//         set_reminder : endTime,
+//     }
+//     NotesDB.reminder(update)
+//     .then(()=>{
+//         console.log('Time for set reminder your notes!');
+//         res.send('Time for set reminder your notes!')
+//     })
+//     }).catch((err) => {
+//       res.send(err)
+//     })
+// });
 
 // 8
 Notes.post('/data/:Notes_id', (req,res) => {
@@ -124,6 +126,27 @@ Notes.get('/getdata/:Attachments_id', (req,res) => {
     NotesDB.get_data(Attachments_id)
     .then((Response) => {
         res.send(Response)
+    }).catch((err) => {
+        res.send(err)
+    })
+});
+
+// 10
+Notes.get('/getdata',(req,res) => {
+    NotesDB.set_data()
+    .then((Response) => {
+    Tasks_set_reminder = []
+    for (j = 0; j < Response.length; j++){
+        var set_reminder = Response[j]['set_reminder']
+        var Tasks = Response[j]['Tasks']
+        if(set_reminder != null){
+            Tasks_set_reminder.push(set_reminder,Tasks)
+            console.log(Tasks_set_reminder) 
+            sleep(6000);
+        } 
+    }
+    res.send({Tasks_set_reminder});
+    // console.log(Tasks_set_reminder)
     }).catch((err) => {
         res.send(err)
     })
