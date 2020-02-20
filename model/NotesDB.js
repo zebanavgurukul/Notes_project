@@ -33,10 +33,6 @@ let search = (search_value) => {
 };
 
 // 7
-let getdata = (Notes_id) => {
-    return knex('your_Notes').select('*').where('Notes_id',Notes_id)
-}; 
-
 let reminder = (insert_data) => {
     return knex('reminder').insert(insert_data)
 };
@@ -60,4 +56,4 @@ let set_data = () => {
     return knex('reminder').select('*')
 };
 
-module.exports = {post_data,get,get_id,put,delete_data,search,getdata,reminder,dataget,postdata,get_data,set_data}
+module.exports = {post_data,get,get_id,put,delete_data,search,reminder,dataget,postdata,get_data,set_data}

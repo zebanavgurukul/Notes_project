@@ -2,13 +2,8 @@ const express = require("express");
 const Notes = express.Router();
 const NotesDB   = require("../model/NotesDB")
 var sleep = require('system-sleep');
-
-
-var schedule = require('node-schedule');
 let startTime = new Date(Date.now() + 2000);
 let endTime = new Date(startTime.getTime() + 4000);
-var j = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/2 * * * * *' }, function(){
-});
 
 // 1
 Notes.post('/post', (req,res) => {
@@ -81,20 +76,15 @@ Notes.get('/notes/:search_value', (req,res) => {
 });
 
 // 7
-Notes.post('/postdata/:Notes_id',(req,res) => {
-    var Notes_id = req.params.Notes_id
-    NotesDB.getdata(Notes_id)
-    .then((Response) => {
-    var Tasks = Response[0]['Tasks']
+Notes.post('/postdata',(req,res) => {
     let update = {
-        Tasks : Tasks,
+        Tasks : req.body.Tasks,
         set_reminder : endTime,
     }
     NotesDB.reminder(update)
     .then(()=>{
         console.log('Time for set reminder your notes!');
         res.send('Time for set reminder your notes!')
-    })
     }).catch((err) => {
       res.send(err)
     })
@@ -145,7 +135,6 @@ Notes.get('/getdata',(req,res) => {
         } 
     }
     res.send({Tasks_set_reminder});
-    // console.log(Tasks_set_reminder)
     }).catch((err) => {
         res.send(err)
     })
